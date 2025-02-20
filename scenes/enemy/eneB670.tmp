@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://l1ydpit1bes0"]
+
+[ext_resource type="Script" path="res://scenes/emeny/enemy.gd" id="1_dx36w"]
+[ext_resource type="Texture2D" uid="uid://cdw6sgctg70x5" path="res://assets/police.png" id="1_steww"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ql6su"]
+radius = 11.0
+height = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_djxxl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_steww")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_dx36w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ql6su")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_djxxl")
+autoplay = "default"
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(26, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-26, 0)
