@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://ofcxmjihwjvp"]
+
+[ext_resource type="Texture2D" uid="uid://cbo28tieduyp7" path="res://assets/sprites/item border.png" id="1_4s3fi"]
+[ext_resource type="Script" path="res://scripts/weapon_menu.gd" id="1_c2s03"]
+[ext_resource type="Texture2D" uid="uid://bp3rmdnogvs70" path="res://assets/sprites/item border backgound.png" id="2_gcnh5"]
+[ext_resource type="Texture2D" uid="uid://geg5i0cy7ebk" path="res://assets/sprites/fruit.png" id="3_dkgho"]
+[ext_resource type="FontFile" uid="uid://cx8v6iryrtdos" path="res://assets/fonts/PixelOperator8.ttf" id="5_5iqxw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5ucd"]
+atlas = ExtResource("3_dkgho")
+region = Rect2(20, 48, 9, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l20ey"]
+atlas = ExtResource("3_dkgho")
+region = Rect2(20, 32, 9, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hh2e"]
+atlas = ExtResource("3_dkgho")
+region = Rect2(20, 48, 9, 16)
+margin = Rect2(0, 2, 0, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2uub"]
+atlas = ExtResource("3_dkgho")
+region = Rect2(20, 32, 9, 16)
+
+[node name="WeaponMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c2s03")
+weapon_textures = Array[Texture2D]([SubResource("AtlasTexture_p5ucd"), SubResource("AtlasTexture_l20ey")])
+
+[node name="Highlight" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 28.0
+texture = ExtResource("1_4s3fi")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+texture = ExtResource("2_gcnh5")
+expand_mode = 3
+
+[node name="Weapon 1" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 28.0
+texture_normal = SubResource("AtlasTexture_4hh2e")
+stretch_mode = 3
+
+[node name="Keybind 1" type="Label" parent="Weapon 1"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("5_5iqxw")
+theme_override_font_sizes/font_size = 8
+text = "1
+
+"
+
+[node name="Weapon 2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 4.0
+offset_right = 56.0
+offset_bottom = 28.0
+texture_normal = SubResource("AtlasTexture_p2uub")
+stretch_mode = 3
+
+[node name="Keybind 2" type="Label" parent="Weapon 2"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("5_5iqxw")
+theme_override_font_sizes/font_size = 8
+text = "2
+"

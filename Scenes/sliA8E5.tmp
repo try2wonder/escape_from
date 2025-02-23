@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://5h514nvd0q4h"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_5n4d2"]
+[ext_resource type="Texture2D" uid="uid://bheeiu03eey3q" path="res://assets/sprites/333.png" id="2_y5sxl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7i725"]
+atlas = ExtResource("2_y5sxl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s8f1"]
+atlas = ExtResource("2_y5sxl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcrma"]
+atlas = ExtResource("2_y5sxl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoke8"]
+atlas = ExtResource("2_y5sxl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pwcru"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i725")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s8f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcrma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoke8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67b4k"]
+size = Vector2(30, 32)
+
+[node name="Slime" type="CharacterBody2D"]
+script = ExtResource("1_5n4d2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["hostile_NPC"]]
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_pwcru")
+autoplay = "default"
+flip_h = true
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(21, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-21, 0)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_67b4k")
