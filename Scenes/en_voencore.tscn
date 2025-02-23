@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp1jl8nocgkcq"]
+
+[ext_resource type="Script" path="res://scripts/en_voencore.gd" id="1_87p00"]
+[ext_resource type="Texture2D" uid="uid://dd8hxti8qe14m" path="res://assets/sprites/police.png" id="1_i63ux"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hbbkm"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8vcfb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i63ux")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iisi3"]
+radius = 9.0
+
+[node name="Voencore" type="CharacterBody2D" groups=["hostile_NPC"]]
+collision_layer = 4
+script = ExtResource("1_87p00")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_hbbkm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8vcfb")
+autoplay = "default"
+flip_h = true
+
+[node name="PlayerKiller" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerKiller"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_iisi3")
+
+[connection signal="body_entered" from="PlayerKiller" to="PlayerKiller" method="_on_body_entered"]

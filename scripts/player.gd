@@ -1,14 +1,17 @@
 extends CharacterBody2D
 
+
 @export var projectile_scene: PackedScene  # Assign the projectile scene in the Inspector
-var is_facing_right: bool = true
+
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var weapon_menu = $"../CanvasLayer/WeaponMenu"
+@onready var death_timer = $DeathTimer
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
+var is_facing_right: bool = true
+var bounce_force: float = -400.0 
 var countJumps :int 
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var weapon_menu = $"../CanvasLayer/WeaponMenu"
-
 #Get the gravity frmo the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -16,6 +19,22 @@ func _ready():
 	weapon_menu.connect("weapon_changed", _on_weapon_changed)
 	if projectile_scene == null:
 		print("Projectile scene is not assigned!")
+
+func bounce():
+	velocity.y = bounce_force
+	move_and_slide()
+
+func die():
+	print("You died")
+	Engine.time_scale = 0.5
+	get_node("CollisionShape2D").queue_free()
+	death_timer.start()
+	
+func _on_death_timer_timeout():
+	Engine.time_scale = 1
+	get_tree().reload_current_scene()
+
+#	Shooting/weapons logic
 
 func _on_weapon_changed(index: int):
 	print("Switched to weapon:", index)

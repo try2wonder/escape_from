@@ -1,11 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://5h514nvd0q4h"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_5n4d2"]
+[ext_resource type="Script" path="res://scripts/en_policai.gd" id="1_5n4d2"]
 [ext_resource type="Texture2D" uid="uid://bheeiu03eey3q" path="res://assets/sprites/333.png" id="2_y5sxl"]
-[ext_resource type="Script" path="res://scripts/enemy_area2d.gd" id="3_36yim"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_67b4k"]
-size = Vector2(28, 31)
+[sub_resource type="CircleShape2D" id="CircleShape2D_5148e"]
+radius = 15.0083
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7i725"]
 atlas = ExtResource("2_y5sxl")
@@ -43,34 +42,41 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dif63"]
-size = Vector2(30, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_mmc1i"]
+radius = 16.0
 
-[node name="Enemy" type="CharacterBody2D" groups=["hostile_NPC"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqion"]
+size = Vector2(14, 2.5625)
+
+[node name="Policai" type="CharacterBody2D" groups=["hostile_NPC"]]
 collision_layer = 4
-collision_mask = 3
 floor_stop_on_slope = false
 script = ExtResource("1_5n4d2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_67b4k")
+shape = SubResource("CircleShape2D_5148e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_pwcru")
 autoplay = "default"
+flip_h = true
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("3_36yim")
+[node name="PlayerKiller" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerKiller"]
 position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_dif63")
+shape = SubResource("CircleShape2D_mmc1i")
 
-[node name="Timer" type="Timer" parent="Area2D"]
+[node name="StompDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="timeout" from="Area2D/Timer" to="Area2D" method="_on_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+position = Vector2(0, -11.2813)
+shape = SubResource("RectangleShape2D_qqion")
+
+[connection signal="body_entered" from="PlayerKiller" to="PlayerKiller" method="_on_body_entered"]
