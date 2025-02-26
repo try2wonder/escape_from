@@ -341,13 +341,13 @@ libraries = {
 autoplay = "h_moving"
 
 [node name="Policai" parent="." instance=ExtResource("8_oc8m5")]
-position = Vector2(251, 72)
+position = Vector2(-47, 107)
 
 [node name="Voencore" parent="." instance=ExtResource("10_t5g64")]
 position = Vector2(-88, 118)
 
 [node name="OMON" parent="." instance=ExtResource("12_017ru")]
-position = Vector2(-62, 120)
+position = Vector2(422, 80)
 
 [node name="Labels" type="Node" parent="."]
 

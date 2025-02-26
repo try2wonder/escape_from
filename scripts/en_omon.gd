@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var killzone = $PlayerKiller
 @onready var players = get_tree().get_nodes_in_group("player_char")
+@onready var player_detector = $RayCast2D
 
 enum State { IDLE, MOVING, STUNNED, CHASING, SLOWED }
 var current_state = State.MOVING
@@ -22,7 +23,7 @@ func get_player_coordinates():
 		return player.global_position
 	return Vector2.ZERO	
 	
-func move_to_player():
+func point_to_player():
 	#calculate the difference between Player position's Vector2D and Mob's
 	var diff = get_player_coordinates() - global_position 
 	
@@ -41,7 +42,7 @@ func move_to_player():
 			velocity.y = JUMP_VELOCITY
 	
 func _ready():
-	killzone.body_entered.connect(_on_killzone_body_entered)
+	#killzone.body_entered.connect(_on_killzone_body_entered)
 	slow_timer = Timer.new()
 	slow_timer.one_shot = true
 	slow_timer.timeout.connect(_on_slow_end)
@@ -58,7 +59,14 @@ func _process(delta):
 		killzone.monitoring = false
 	elif current_state == State.MOVING or current_state == State.SLOWED:
 		killzone.monitoring = true
-		
+	
+func detect_player():
+	if player_detector.is_colliding():
+		var collider = player_detector.get_collider()
+		if collider and collider.is_in_group("player_char"):
+			current_state = State.CHASING
+			player_detector.enabled = false
+
 func get_slowed(duration):
 	if current_state != State.SLOWED:
 		print("Enemy slowed!")
@@ -68,6 +76,19 @@ func get_slowed(duration):
 func _on_slow_end():
 	print("Enemy recovered from slow!")
 	current_state = State.MOVING
+
+func roaming(delta):
+	SPEED = 100
+	velocity.x = SPEED * direction
+	move_and_slide()
+	# Revee direction if hitting a wall
+	if is_on_wall():
+		direction *= -1
+		animated_sprite.flip_h = not animated_sprite.flip_h
+		player_detector.scale.x *= -1
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 func basic_movement(delta):
 	velocity.x = SPEED * direction
@@ -86,12 +107,16 @@ func basic_movement(delta):
 func _physics_process(delta):
 	match current_state:
 		State.MOVING:
-			SPEED = 100
-			move_to_player()
-			basic_movement(delta)
+			roaming(delta)
+			detect_player()
 		State.SLOWED:
 			SPEED = 50
-			move_to_player()
+			point_to_player()
 			basic_movement(delta)
 		State.STUNNED:
 			SPEED = 0
+		State.CHASING:
+			SPEED = 100
+			point_to_player()
+			basic_movement(delta)
+			
