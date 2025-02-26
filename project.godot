@@ -30,6 +30,8 @@ window/stretch/mode="viewport"
 player_char="Characters, that a player controlls"
 hostile_NPC="For enemies"
 projectile="Things that hurt everyone"
+stunnable="has get_stunned() method"
+slowable="for NPCs that have get_slowed() method"
 
 [input]
 

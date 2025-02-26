@@ -28,7 +28,7 @@ animations = [{
 
 [node name="projectile2" type="RigidBody2D" groups=["projectile"]]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_rg6qg")
 contact_monitor = true
 max_contacts_reported = 10

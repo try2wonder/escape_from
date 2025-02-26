@@ -41,7 +41,7 @@ func get_stunned(duration : float):
 		stun_timer.start(duration)  # Stun for 2 seconds
 		# Example: Change animation or stop movement
 		#$AnimatedSprite2D.play("stunned")
-
+		
 func _on_stun_end():
 	print("Enemy recovered from stun!")
 	current_state = State.MOVING

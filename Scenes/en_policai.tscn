@@ -43,12 +43,12 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mmc1i"]
-radius = 16.0
+radius = 12.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqion"]
 size = Vector2(14, 2.5625)
 
-[node name="Policai" type="CharacterBody2D" groups=["hostile_NPC"]]
+[node name="Policai" type="CharacterBody2D" groups=["hostile_NPC", "stunnable"]]
 collision_layer = 4
 floor_stop_on_slope = false
 script = ExtResource("1_5n4d2")
@@ -68,7 +68,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerKiller"]
-position = Vector2(0, 6)
+position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_mmc1i")
 
 [node name="StompDetector" type="Area2D" parent="."]

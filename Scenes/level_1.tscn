@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://lejx1eyojlq"]
+[gd_scene load_steps=19 format=4 uid="uid://lejx1eyojlq"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_jlpec"]
 [ext_resource type="FontFile" uid="uid://bctmtnlyhpbk2" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_eq2ty"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://5h514nvd0q4h" path="res://Scenes/en_policai.tscn" id="8_oc8m5"]
 [ext_resource type="FontFile" uid="uid://cx8v6iryrtdos" path="res://assets/fonts/PixelOperator8.ttf" id="9_6iph8"]
 [ext_resource type="PackedScene" uid="uid://dp1jl8nocgkcq" path="res://Scenes/en_voencore.tscn" id="10_t5g64"]
+[ext_resource type="PackedScene" uid="uid://b5jqys3jq5agn" path="res://Scenes/en_omon.tscn" id="12_017ru"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cbi7p"]
 texture = ExtResource("3_31yu1")
@@ -340,10 +341,13 @@ libraries = {
 autoplay = "h_moving"
 
 [node name="Policai" parent="." instance=ExtResource("8_oc8m5")]
-position = Vector2(422, 73)
+position = Vector2(251, 72)
 
 [node name="Voencore" parent="." instance=ExtResource("10_t5g64")]
-position = Vector2(3, 80)
+position = Vector2(-88, 118)
+
+[node name="OMON" parent="." instance=ExtResource("12_017ru")]
+position = Vector2(-62, 120)
 
 [node name="Labels" type="Node" parent="."]
 

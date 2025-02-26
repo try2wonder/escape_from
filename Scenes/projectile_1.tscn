@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://buylnyhvfk32k"]
 
-[ext_resource type="Script" path="res://scripts/projectile2.gd" id="1_wwbib"]
+[ext_resource type="Script" path="res://scripts/projectile1.gd" id="1_igwom"]
 [ext_resource type="Texture2D" uid="uid://geg5i0cy7ebk" path="res://assets/sprites/fruit.png" id="2_jpcex"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rg6qg"]
@@ -28,10 +28,10 @@ animations = [{
 
 [node name="projectile1" type="RigidBody2D" groups=["projectile"]]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_rg6qg")
 max_contacts_reported = 10
-script = ExtResource("1_wwbib")
+script = ExtResource("1_igwom")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_835fs")

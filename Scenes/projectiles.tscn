@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbq6vihhf17t6"]
+
+[ext_resource type="PackedScene" uid="uid://buylnyhvfk32k" path="res://Scenes/projectile_1.tscn" id="1_cx4se"]
+[ext_resource type="PackedScene" uid="uid://c5j7ef8mrwb8f" path="res://Scenes/projectile_2.tscn" id="2_elmvk"]
+
+[node name="Projectiles" type="Node"]
+
+[node name="projectile1" parent="." instance=ExtResource("1_cx4se")]
+
+[node name="projectile2" parent="." instance=ExtResource("2_elmvk")]
