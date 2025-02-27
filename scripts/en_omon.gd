@@ -10,7 +10,7 @@ var current_state = State.MOVING
 var slow_timer: Timer
 var SPEED := 100.0
 var direction := 1
-const JUMP_VELOCITY = -300.0
+var JUMP_VELOCITY = -300.0
 
 func get_player():
 	if players.size() > 0:
@@ -111,12 +111,13 @@ func _physics_process(delta):
 			detect_player()
 		State.SLOWED:
 			SPEED = 50
+			JUMP_VELOCITY = -150.0
 			point_to_player()
 			basic_movement(delta)
 		State.STUNNED:
 			SPEED = 0
 		State.CHASING:
-			SPEED = 100
+			SPEED = 150
 			point_to_player()
 			basic_movement(delta)
 			

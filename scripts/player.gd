@@ -44,7 +44,7 @@ func _on_weapon_changed(index: int):
 func _unhandled_input(event):
 	if Input.is_action_pressed("shoot"):
 		if throw_power <= 1.5:
-			throw_power += 0.02
+			throw_power += 0.05
 			print(throw_power)
 			
 		else:
