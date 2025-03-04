@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ofcxmjihwjvp"]
 
 [ext_resource type="Texture2D" uid="uid://cbo28tieduyp7" path="res://assets/sprites/item border.png" id="1_4s3fi"]
-[ext_resource type="Script" path="res://scripts/weapon_menu.gd" id="1_c2s03"]
+[ext_resource type="Script" uid="uid://d23etchkrwms3" path="res://scripts/weapon_menu.gd" id="1_c2s03"]
 [ext_resource type="Texture2D" uid="uid://bp3rmdnogvs70" path="res://assets/sprites/item border backgound.png" id="2_gcnh5"]
 [ext_resource type="Texture2D" uid="uid://geg5i0cy7ebk" path="res://assets/sprites/fruit.png" id="3_dkgho"]
 [ext_resource type="FontFile" uid="uid://cx8v6iryrtdos" path="res://assets/fonts/PixelOperator8.ttf" id="5_5iqxw"]

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Escape from Russia"
 run/main_scene="res://Scenes/level_1.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -32,6 +32,7 @@ hostile_NPC="For enemies"
 projectile="Things that hurt everyone"
 stunnable="has get_stunned() method"
 slowable="for NPCs that have get_slowed() method"
+chasing="chasing_NPCs"
 
 [input]
 

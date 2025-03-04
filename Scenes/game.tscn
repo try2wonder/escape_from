@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=4 uid="uid://hlqblkoacpdw"]
 
 [ext_resource type="PackedScene" uid="uid://dftvrbgleleoi" path="res://Scenes/player.tscn" id="1_nswjs"]
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_rcfqw"]
+[ext_resource type="Script" uid="uid://dc63vybe6vyee" path="res://scripts/game_manager.gd" id="1_rcfqw"]
 [ext_resource type="Texture2D" uid="uid://b4hncl3fqyx6a" path="res://assets/sprites/world_tileset.png" id="2_iqpif"]
 [ext_resource type="PackedScene" uid="uid://bjvimtpcwcuqj" path="res://Scenes/platform.tscn" id="3_j0k81"]
 [ext_resource type="PackedScene" uid="uid://cqpm3n3crvt7u" path="res://Scenes/coin.tscn" id="4_wkkev"]
@@ -211,8 +211,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwcjo"]
 _data = {
-"RESET": SubResource("Animation_7650f"),
-"move": SubResource("Animation_gas02")
+&"RESET": SubResource("Animation_7650f"),
+&"move": SubResource("Animation_gas02")
 }
 
 [node name="Game" type="Node2D"]

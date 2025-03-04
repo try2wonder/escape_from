@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://5h514nvd0q4h"]
 
-[ext_resource type="Script" path="res://scripts/en_policai.gd" id="1_5n4d2"]
+[ext_resource type="Script" uid="uid://cnb5kku8epigj" path="res://scripts/en_policai.gd" id="1_5n4d2"]
 [ext_resource type="Texture2D" uid="uid://bheeiu03eey3q" path="res://assets/sprites/333.png" id="2_y5sxl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5148e"]
@@ -50,6 +50,7 @@ size = Vector2(14, 2.5625)
 
 [node name="Policai" type="CharacterBody2D" groups=["hostile_NPC", "stunnable"]]
 collision_layer = 4
+collision_mask = 17
 floor_stop_on_slope = false
 script = ExtResource("1_5n4d2")
 

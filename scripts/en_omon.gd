@@ -5,8 +5,10 @@ extends CharacterBody2D
 @onready var players = get_tree().get_nodes_in_group("player_char")
 @onready var player_detector = $RayCast2D
 
-enum State { IDLE, MOVING, STUNNED, CHASING, SLOWED }
-var current_state = State.MOVING
+enum State {
+	 IDLE, ROAMING, STUNNED, CHASING, SLOWED 
+	}
+var current_state = State.ROAMING
 var slow_timer: Timer
 var SPEED := 100.0
 var direction := 1
@@ -54,11 +56,18 @@ func _on_killzone_body_entered(body):
 		body.die()
 	else: pass
 
+func passify():
+	current_state = State.ROAMING
+
 func _process(delta):
 	if current_state == State.STUNNED:
 		killzone.monitoring = false
-	elif current_state == State.MOVING or current_state == State.SLOWED:
+	elif current_state == State.ROAMING or current_state == State.SLOWED or current_state == State.CHASING:
 		killzone.monitoring = true
+	if current_state == State.CHASING:
+		add_to_group("chasing")
+	else:
+		remove_from_group("chasing")
 	
 func detect_player():
 	if player_detector.is_colliding():
@@ -75,28 +84,11 @@ func get_slowed(duration):
 		
 func _on_slow_end():
 	print("Enemy recovered from slow!")
-	current_state = State.MOVING
-
-func roaming(delta):
-	SPEED = 100
-	velocity.x = SPEED * direction
-	move_and_slide()
-	# Revee direction if hitting a wall
-	if is_on_wall():
-		direction *= -1
-		animated_sprite.flip_h = not animated_sprite.flip_h
-		player_detector.scale.x *= -1
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	current_state = State.ROAMING
 
 func basic_movement(delta):
 	velocity.x = SPEED * direction
 	move_and_slide()
-	
-	if is_on_wall():
-		velocity.y = JUMP_VELOCITY
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if velocity.x < 0:
@@ -104,20 +96,33 @@ func basic_movement(delta):
 	if velocity.x > 0:
 		animated_sprite.flip_h = true
 
+func roaming(delta):
+	SPEED = 100
+	basic_movement(delta)
+	# Revee direction if hitting a wall
+	if is_on_wall():
+		direction *= -1
+		player_detector.scale.x *= -1
+	
+func chase_movement(delta):
+	basic_movement(delta)
+	if is_on_wall():
+		velocity.y = JUMP_VELOCITY
+
 func _physics_process(delta):
 	match current_state:
-		State.MOVING:
+		State.ROAMING:
 			roaming(delta)
 			detect_player()
 		State.SLOWED:
 			SPEED = 50
 			JUMP_VELOCITY = -150.0
 			point_to_player()
-			basic_movement(delta)
+			chase_movement(delta)
 		State.STUNNED:
 			SPEED = 0
 		State.CHASING:
 			SPEED = 150
 			point_to_player()
-			basic_movement(delta)
+			chase_movement(delta)
 			

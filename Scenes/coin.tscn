@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://cqpm3n3crvt7u"]
 
-[ext_resource type="Script" path="res://scripts/coin.gd" id="1_cth6d"]
+[ext_resource type="Script" uid="uid://cq8vo7d7ddjjk" path="res://scripts/coin.gd" id="1_cth6d"]
 [ext_resource type="Texture2D" uid="uid://cddeclrmmcg2k" path="res://assets/sprites/coin.png" id="1_jfsp2"]
 [ext_resource type="AudioStream" uid="uid://c75fay3mrrdor" path="res://assets/sounds/coin.wav" id="3_6evsm"]
 
@@ -193,8 +193,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4vceb"]
 _data = {
-"RESET": SubResource("Animation_5ig6p"),
-"pickup": SubResource("Animation_ws7d2")
+&"RESET": SubResource("Animation_5ig6p"),
+&"pickup": SubResource("Animation_ws7d2")
 }
 
 [node name="coin" type="Area2D"]

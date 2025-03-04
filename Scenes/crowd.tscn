@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bha2aixcnhkls"]
+
+[ext_resource type="Script" uid="uid://8j5jcgl1qx6y" path="res://scripts/crowd.gd" id="1_ufwdi"]
+[ext_resource type="Texture2D" uid="uid://bw4hjcy8mijn2" path="res://assets/sprites/crowd of people.png" id="2_ds8sv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urbdt"]
+size = Vector2(102, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufwdi"]
+size = Vector2(97, 30)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 4
+
+[node name="Crowd" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ufwdi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crowd"]
+position = Vector2(-1, -1.5)
+shape = SubResource("RectangleShape2D_urbdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ds8sv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_ufwdi")
+
+[connection signal="body_entered" from="Crowd" to="Crowd" method="_on_body_entered"]

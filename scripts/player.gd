@@ -16,7 +16,7 @@ var throw_power :float = 0.1
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	weapon_menu.connect("weapon_changed", _on_weapon_changed)
+	#weapon_menu.connect("weapon_changed", _on_weapon_changed)
 	if projectile_scene == null:
 		print("Projectile scene is not assigned!")
 

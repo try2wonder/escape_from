@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://b5jqys3jq5agn"]
 
 [ext_resource type="Texture2D" uid="uid://d12u3cfo0rfjx" path="res://assets/sprites/hero_idle.png" id="1_0vqwv"]
-[ext_resource type="Script" path="res://scripts/en_omon.gd" id="1_nwoec"]
+[ext_resource type="Script" uid="uid://chghouu2uf652" path="res://scripts/en_omon.gd" id="1_nwoec"]
 [ext_resource type="Texture2D" uid="uid://cu7nmr0pnxpv0" path="res://assets/sprites/hero_moves.png" id="2_n43xi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wep6g"]
@@ -90,6 +90,7 @@ height = 26.0
 
 [node name="OMON" type="CharacterBody2D" groups=["hostile_NPC", "slowable"]]
 collision_layer = 4
+collision_mask = 17
 script = ExtResource("1_nwoec")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

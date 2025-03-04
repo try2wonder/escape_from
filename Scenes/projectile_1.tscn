@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://buylnyhvfk32k"]
 
-[ext_resource type="Script" path="res://scripts/projectile1.gd" id="1_igwom"]
+[ext_resource type="Script" uid="uid://c457jf4go1vat" path="res://scripts/projectile1.gd" id="1_igwom"]
 [ext_resource type="Texture2D" uid="uid://geg5i0cy7ebk" path="res://assets/sprites/fruit.png" id="2_jpcex"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rg6qg"]

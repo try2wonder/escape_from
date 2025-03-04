@@ -4,8 +4,11 @@ extends CharacterBody2D
 @onready var killzone = $PlayerKiller
 @onready var players = get_tree().get_nodes_in_group("player_char")
 
-enum State { IDLE, MOVING, STUNNED, CHASING }
-var current_state = State.MOVING
+
+enum State {
+	 IDLE, ROAMING, STUNNED, CHASING 
+	}
+var current_state = State.CHASING
 var stun_timer: Timer
 var SPEED := 100.0
 var direction := 1
@@ -22,7 +25,7 @@ func get_player_coordinates():
 		return player.global_position
 	return Vector2.ZERO	
 	
-func move_to_player():
+func point_to_player():
 	#calculate the difference between Player position's Vector2D and Mob's
 	var diff = get_player_coordinates() - global_position 
 	
@@ -40,10 +43,12 @@ func move_to_player():
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
 	
-
 func _ready():
 	killzone.body_entered.connect(_on_killzone_body_entered)
 	
+func passify():
+	current_state = State.ROAMING
+
 func _on_killzone_body_entered(body):
 	print("Killzone body entered:", body.name)
 	if body.is_in_group("player_char") :
@@ -51,29 +56,45 @@ func _on_killzone_body_entered(body):
 	else: pass
 
 func _process(delta):
-	
 	if current_state == State.STUNNED:
 		killzone.monitoring = false
-	elif current_state == State.MOVING:
+	elif current_state == State.ROAMING or current_state == State.CHASING:
 		killzone.monitoring = true
-		
-	
+	if current_state == State.CHASING:
+		add_to_group("chasing")
+	else:
+		remove_from_group("chasing")
+
+func basic_movement(delta):
+	velocity.x = SPEED * direction
+	move_and_slide()
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	if velocity.x < 0:
+		animated_sprite.flip_h = false
+	if velocity.x > 0:
+		animated_sprite.flip_h = true
+
+func roaming(delta):
+	basic_movement(delta)
+	# Revee direction if hitting a wall
+	if is_on_wall():
+		direction *= -1
+
+func chase_movement(delta):
+	basic_movement(delta)
+	if is_on_wall():
+		velocity.y = JUMP_VELOCITY
+
 
 func _physics_process(delta):
 	match current_state:
-		State.MOVING:
-			SPEED = 100
-			velocity.x = SPEED * direction
-			move_and_slide()
-			move_to_player()
-			if is_on_wall():
-				velocity.y = JUMP_VELOCITY
-			# Add the gravity.
-			if not is_on_floor():
-				velocity += get_gravity() * delta
-			if velocity.x < 0:
-				animated_sprite.flip_h = false
-			if velocity.x > 0:
-				animated_sprite.flip_h = true
+		State.ROAMING:
+			SPEED = 50
+			roaming(delta)
 		State.STUNNED:
 			SPEED = 0
+		State.CHASING:
+			SPEED = 100
+			point_to_player()
+			chase_movement(delta)

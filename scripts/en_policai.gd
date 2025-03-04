@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-enum State { IDLE, MOVING, STUNNED }
-var current_state = State.MOVING
+enum State {
+	 IDLE, ROAMING, STUNNED 
+	}
+var current_state = State.ROAMING
 var stun_timer: Timer
 var SPEED := 100.0
 var direction := 1
@@ -44,29 +46,35 @@ func get_stunned(duration : float):
 		
 func _on_stun_end():
 	print("Enemy recovered from stun!")
-	current_state = State.MOVING
+	current_state = State.ROAMING
 	# Example: Resume normal behavior
 	#$AnimatedSprite2D.play("moving")
 
 func _process(delta):
 	if current_state == State.STUNNED:
 		killzone.monitoring = false
-	elif current_state == State.MOVING:
+	elif current_state == State.ROAMING:
 		killzone.monitoring = true
 		
+func basic_movement(delta):
+	velocity.x = SPEED * direction
+	move_and_slide()
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	if velocity.x < 0:
+		animated_sprite.flip_h = false
+	if velocity.x > 0:
+		animated_sprite.flip_h = true
+func roaming(delta):
+	basic_movement(delta)
+	if is_on_wall():
+		direction *= -1
+
 func _physics_process(delta):
 	match current_state:
-		State.MOVING:
+		State.ROAMING:
 			SPEED = 100
-			velocity.x = SPEED * direction
-			move_and_slide()
-	# Reverse direction if hitting a wall
-			if is_on_wall():
-				direction *= -1
-				animated_sprite.flip_h = not animated_sprite.flip_h
-			# Add the gravity.
-			if not is_on_floor():
-				velocity += get_gravity() * delta
+			roaming(delta)
 		State.STUNNED:
 			SPEED = 0
 
